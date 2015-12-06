@@ -8,9 +8,19 @@
 #include<iostream>
 #include <string>
 using namespace std;
+struct Person;
+istream &read(istream &is,Person &item);
+ostream &print(ostream &os,const Person &item);
 struct Person{
+    friend istream &read(istream &is,Person &item);
+    friend ostream &print(ostream &os,const Person &item);
+private:
     std::string name;
     std::string addr;
+public:
+    Person(const string &n,const std::string &s):name(n),addr(s){}
+
+    Person(istream &is){read(is,*this);}
     std::string returnName()const{
         return name;
     }
@@ -27,7 +37,10 @@ struct Person{
     }
 int main(int argc,char *argv[])
 {
-    Person data1,data2;
+    Person data1("yang","西安");
+    Person data2(cin);
+    print(cout,data1)<<endl;
+    print(cout,data2)<<endl;
     if(read(read(cin,data1),data2)){
         
     }
